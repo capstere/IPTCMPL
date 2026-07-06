@@ -1,0 +1,36 @@
+Nu fungerar det. Inga varningar för "Delegation".
+
+Jag har däremot upptäckt några saker som måste fixas. Bifogar nuvarande "Code View" för appen så du kan analysera.
+
+PÅGÅENDE KÖRNINGAAR:
+Just nu visas inte korrekt bag tested - Varför?
+
+ACTION QUEUE — COMPILING / REVIEW:
+Jag har upptäckt nya "scenarier" som gör att vi måste lägga till logik för att det ska stämma.
+En körnings original testning räknas som sagt som klar för sammanställning och därefter granskning när "Testing finalized" och så vidare är ifyllda.
+Men vi måste inkludera fler fält.
+En körningar kan nämligen få "Resampling". Från SharePoint "'Cepheid | Production orders'" chooice-fältet "'IPT - Test results'" kommer det vara valt för:
+Resampling
+
+Då är körningen fortfarande under "Testning" och måste ta hänsyn till SharePoint-fältet "IPT - Resampling finalized" (datum och tid). När datum och tid är ikryssat där så fortsätter sammanställning och granskningsflödet. 
+
+För din vetskap har chooice-fältet "'IPT - Test results'" även följande alternativ som vi kanske bör ha med i vår logik:
+Approved
+Rejected
+Rejected after  resample
+Approved after resample
+Extra testing <- ANVÄNDS SÄLLAN
+Testing ongoing <- ANVÄNDS SÄLLAN
+
+Approved betyder att batchen är godkänd hos IPT.
+Approved after resample betyder att batchen är godkänd efter resample
+Rejected betyder att batchen är FAIL hos IPT.
+Rejected after resample betyder att även efter resampling så är batchen failed hos IPT.
+
+ 
+För att detta ska bli snyggt implementerat så kan vi lägga till en status "Resampling" i Action queue med en färg.
+
+Dessutom funderar jag på varför vi ska ha sökfält och datumintervall synligt på dashboarden? Detta ska ju ändå vara automatiskt?
+Vi borde i såna fall kunna flytta upp alla fält om detta skulle tas bort och frigöra utrymme för dashboarden. 
+
+Gissa eller halluceinera inte. TACK!
