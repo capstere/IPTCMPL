@@ -1,0 +1,43 @@
+Det du skickar fungerar inte. När jag korrigerade och skrev om det såhär gav det iallafall inga fel:
+
+Refresh(IPTApp_ErrorsBagTested);
+
+ClearCollect(
+
+    colIptMetrics,
+
+    AddColumns(
+
+        Filter(
+
+            IPTApp_ErrorsBagTested,
+
+            StartsWith(ProductionOrder, "111") ||
+
+            StartsWith(ProductionOrder, "112")
+
+        ) As m,
+
+        OrderKey,
+
+            Trim(Text(m.ProductionOrder)),
+
+        BagTestedValue,
+
+            IfError(Value(Text(m.BagTested)), Blank()),
+
+        MinorErrorValue,
+
+            IfError(Value(Text(m.MinorError)), Blank()),
+
+        MajorErrorValue,
+
+            IfError(Value(Text(m.MajorError)), Blank()),
+
+        STFValue,
+
+            IfError(Value(Text(m.STF)), Blank())
+
+    )
+
+)
